@@ -21,3 +21,4 @@ let Leonardo = sprites.create(img`
     ...ffff..ffff...
     `, SpriteKind.Player)
 scene.setBackgroundColor(9)
+tiles.setCurrentTilemap(tilemap`level1`)
