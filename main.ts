@@ -71,6 +71,9 @@ controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
         )
     }
 })
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile6`, function (sprite, location) {
+    game.over(true)
+})
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     if (direction == 0) {
         Leonardo.setImage(img`
@@ -124,6 +127,9 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     if (Leonardo.vy == 0) {
         Leonardo.vy = -100
     }
+})
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile7`, function (sprite, location) {
+    game.over(false)
 })
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     direction = 0
@@ -303,6 +309,10 @@ controller.up.onEvent(ControllerButtonEvent.Released, function () {
             ...ffff..ffff...
             `)
     }
+})
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile8`, function (sprite, location) {
+    info.setScore(0)
+    info.changeScoreBy(1)
 })
 controller.B.onEvent(ControllerButtonEvent.Released, function () {
     if (direction == 0) {
