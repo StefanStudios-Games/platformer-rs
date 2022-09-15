@@ -313,10 +313,6 @@ controller.up.onEvent(ControllerButtonEvent.Released, function () {
             `)
     }
 })
-scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile8`, function (sprite, location) {
-    info.setScore(0)
-    info.changeScoreBy(1)
-})
 function callSpikes () {
     for (let value of tiles.getTilesByType(assets.tile`myTile9`)) {
         spr_Spike = sprites.create(img`
@@ -390,11 +386,40 @@ controller.B.onEvent(ControllerButtonEvent.Released, function () {
             `)
     }
 })
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite, otherSprite) {
+    info.changeScoreBy(1)
+})
+function callpoints () {
+    for (let value of tiles.getTilesByType(assets.tile`myTile8`)) {
+        points = sprites.create(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . 5 5 5 5 5 5 5 . . . . . . . 
+            . 5 5 5 5 5 5 5 5 5 . . . . . . 
+            5 5 5 5 f f f 5 5 5 5 . . . . . 
+            5 5 5 f 5 5 5 5 5 5 5 . . . . . 
+            5 5 5 f 5 5 5 5 5 5 5 . . . . . 
+            5 5 5 f f f f 5 5 5 5 . . . . . 
+            5 5 5 f 5 5 5 5 5 5 5 . . . . . 
+            5 5 5 f 5 5 5 5 5 5 5 . . . . . 
+            5 5 5 f 5 5 5 5 5 5 5 . . . . . 
+            . 5 5 5 f f f 5 5 5 . . . . . . 
+            . . 5 5 5 5 5 5 5 . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            `, SpriteKind.Food)
+        tiles.placeOnTile(points, value)
+        tiles.setTileAt(value, assets.tile`transparency16`)
+        info.changeScoreBy(1)
+    }
+}
 scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.stairSouth, function (sprite, location) {
     if (controller.up.isPressed()) {
         Leonardo.vy = -100
     }
 })
+let points: Sprite = null
 let spr_Spike: Sprite = null
 let direction = 0
 let Leonardo: Sprite = null
@@ -549,6 +574,7 @@ scene.setBackgroundColor(9)
 scene.cameraFollowSprite(Leonardo)
 callSpikes()
 controller.moveSprite(Leonardo, 80, 0)
+info.setScore(0)
 let ninja = sprites.create(img`
     .f..............
     .f....ffff......
