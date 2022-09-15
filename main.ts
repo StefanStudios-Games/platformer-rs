@@ -1,3 +1,6 @@
+namespace SpriteKind {
+    export const trap = SpriteKind.create()
+}
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
     if (Leonardo.tileKindAt(TileDirection.Top, sprites.dungeon.stairSouth)) {
         animation.runImageAnimation(
@@ -128,9 +131,6 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
         Leonardo.vy = -100
     }
 })
-scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile7`, function (sprite, location) {
-    game.over(false)
-})
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     direction = 0
     animation.runImageAnimation(
@@ -232,6 +232,9 @@ controller.left.onEvent(ControllerButtonEvent.Released, function () {
         ...ffff..ffff...
         `)
 })
+sprites.onOverlap(SpriteKind.Player, SpriteKind.trap, function (sprite, otherSprite) {
+    game.over(false)
+})
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     direction = 1
     animation.runImageAnimation(
@@ -314,6 +317,30 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile8`, function (sprite, l
     info.setScore(0)
     info.changeScoreBy(1)
 })
+function callSpikes () {
+    for (let value of tiles.getTilesByType(assets.tile`myTile9`)) {
+        spr_Spike = sprites.create(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . f f . . . . . . . 
+            . . . . . . f f f f . . . . . . 
+            . . . . . f f f f f f . . . . . 
+            . . . . f f f f f f f f . . . . 
+            . . . f f f f f f f f f f . . . 
+            . . f f f f f f f f f f f f . . 
+            . f f f f f f f f f f f f f f . 
+            `, SpriteKind.trap)
+        tiles.placeOnTile(spr_Spike, value)
+        tiles.setTileAt(value, assets.tile`transparency16`)
+    }
+}
 controller.B.onEvent(ControllerButtonEvent.Released, function () {
     if (direction == 0) {
         Leonardo.setImage(img`
@@ -368,6 +395,7 @@ scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.stairSouth, function (spr
         Leonardo.vy = -100
     }
 })
+let spr_Spike: Sprite = null
 let direction = 0
 let Leonardo: Sprite = null
 scene.setBackgroundImage(img`
@@ -519,6 +547,7 @@ tiles.setCurrentTilemap(tilemap`level1`)
 tiles.placeOnRandomTile(Leonardo, assets.tile`myTile`)
 scene.setBackgroundColor(9)
 scene.cameraFollowSprite(Leonardo)
+callSpikes()
 controller.moveSprite(Leonardo, 80, 0)
 let ninja = sprites.create(img`
     .f..............
