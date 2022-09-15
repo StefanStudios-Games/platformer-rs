@@ -387,6 +387,7 @@ controller.B.onEvent(ControllerButtonEvent.Released, function () {
     }
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite, otherSprite) {
+    otherSprite.destroy()
     info.changeScoreBy(1)
 })
 function callpoints () {
@@ -411,7 +412,6 @@ function callpoints () {
             `, SpriteKind.Food)
         tiles.placeOnTile(points, value)
         tiles.setTileAt(value, assets.tile`transparency16`)
-        info.changeScoreBy(1)
     }
 }
 scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.stairSouth, function (sprite, location) {
@@ -573,6 +573,7 @@ tiles.placeOnRandomTile(Leonardo, assets.tile`myTile`)
 scene.setBackgroundColor(9)
 scene.cameraFollowSprite(Leonardo)
 callSpikes()
+callpoints()
 controller.moveSprite(Leonardo, 80, 0)
 info.setScore(0)
 let ninja = sprites.create(img`
