@@ -1,6 +1,11 @@
 namespace SpriteKind {
     export const trap = SpriteKind.create()
 }
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile0`, function (sprite, location) {
+    if (1 > currentCheckpoint) {
+        currentCheckpoint = 1
+    }
+})
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
     if (Leonardo.tileKindAt(TileDirection.Top, sprites.dungeon.stairSouth)) {
         animation.runImageAnimation(
@@ -233,7 +238,15 @@ controller.left.onEvent(ControllerButtonEvent.Released, function () {
         `)
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.trap, function (sprite, otherSprite) {
-    game.over(false)
+    Leonardo.y += -7
+    Leonardo.vy = -50
+    info.changeLifeBy(-1)
+    music.knock.play()
+    if (currentCheckpoint == 0) {
+        tiles.placeOnRandomTile(Leonardo, assets.tile`myTile`)
+    } else if (currentCheckpoint == 1) {
+        tiles.placeOnRandomTile(Leonardo, assets.tile`myTile0`)
+    }
 })
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     direction = 1
@@ -391,7 +404,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite, otherSpr
     info.changeScoreBy(1)
 })
 function callpoints () {
-    for (let value of tiles.getTilesByType(assets.tile`myTile8`)) {
+    for (let value2 of tiles.getTilesByType(assets.tile`myTile8`)) {
         points = sprites.create(img`
             . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . . 
@@ -410,8 +423,8 @@ function callpoints () {
             . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . . 
             `, SpriteKind.Food)
-        tiles.placeOnTile(points, value)
-        tiles.setTileAt(value, assets.tile`transparency16`)
+        tiles.placeOnTile(points, value2)
+        tiles.setTileAt(value2, assets.tile`transparency16`)
     }
 }
 scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.stairSouth, function (sprite, location) {
@@ -422,6 +435,7 @@ scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.stairSouth, function (spr
 let points: Sprite = null
 let spr_Spike: Sprite = null
 let direction = 0
+let currentCheckpoint = 0
 let Leonardo: Sprite = null
 scene.setBackgroundImage(img`
     cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
@@ -600,6 +614,8 @@ let ninja = sprites.create(img`
     `, SpriteKind.Enemy)
 ninja.ay = 100
 tiles.placeOnRandomTile(ninja, assets.tile`myTile3`)
+info.setLife(3)
+currentCheckpoint = 0
 animation.runImageAnimation(
 ninja,
 [img`
