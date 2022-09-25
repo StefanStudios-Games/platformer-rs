@@ -2,7 +2,9 @@
     "name": "platformer RS",
     "description": "",
     "dependencies": {
-        "device": "*"
+        "device": "*",
+        "block-menu": "github:riknoll/arcade-custom-menu#v0.0.1",
+        "arcade-sprite-data": "github:microsoft/arcade-sprite-data#v0.1.0"
     },
     "files": [
         "main.blocks",
