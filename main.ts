@@ -135,6 +135,13 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
         }
     }
 })
+controller.anyButton.onEvent(ControllerButtonEvent.Pressed, function () {
+    if (gameMode == "menu") {
+        myMenu.onButtonPressed(controller.A, function (selection, selectedIndex) {
+            changeMode(selection)
+        })
+    }
+})
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     if (gameMode == "play") {
         if (Leonardo.vy == 0) {
@@ -712,10 +719,36 @@ function changeMode (mode: string) {
             c 1 d 1 1 d 1 1 d 1 1 d 1 1 c . 
             c b b b b b b b b b b b b b c . 
             c c c c c c c c c c c c c c c . 
+            `),
+        miniMenu.createMenuItem("story", img`
+            .cccccccccccccc.
+            cbddddddddddddbc
+            cddddddddddddddc
+            cddddddddddddddc
+            cddddddddddddddc
+            cddddddddddddddc
+            cddddddddddddddc
+            cbddddddddddddbc
+            ccbbbbbbbbbbbbcc
+            ccffffffffffffcc
+            cbc44c7c66c3ccbc
+            cbc44c7c66c3ccbc
+            fbc44c7c66c3ccbf
+            fdccccccccccccdf
+            fdcbbddddddbbcdf
+            fdffffffffffffdf
+            fdcc4c44c3c7ccdf
+            fdcc4c44c3c7ccdf
+            fdcccc44ccc7ccdf
+            fdccccccccccccdf
+            fdcbbddddddbbcdf
+            fdcbbddddddbbcdf
+            fdffffffffffffdf
+            ffffffffffffffff
             `)
         )
         myMenu.setDimensions(160, 100)
-        myMenu.setPosition(0, 80)
+        myMenu.setPosition(0, 50)
     } else if (mode == "play") {
         changeMode("starting")
     } else if (mode == "credits") {
@@ -1009,6 +1042,9 @@ function changeMode (mode: string) {
         true
         )
         myMenu.close()
+    } else if (gameMode == "story") {
+        myMenu.close()
+        story2()
     }
     gameMode = mode
 }
@@ -1043,18 +1079,11 @@ scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.stairSouth, function (spr
 })
 let points: Sprite = null
 let ninja: Sprite = null
-let myMenu: miniMenu.MenuSprite = null
 let spr_Spike: Sprite = null
+let myMenu: miniMenu.MenuSprite = null
 let direction = 0
 let Leonardo: Sprite = null
 let currentCheckpoint = 0
 let gameMode = ""
 changeMode("menu")
 gameMode = "menu"
-game.onUpdate(function () {
-    if (gameMode == "menu") {
-        myMenu.onButtonPressed(controller.A, function (selection, selectedIndex) {
-            changeMode(selection)
-        })
-    }
-})
