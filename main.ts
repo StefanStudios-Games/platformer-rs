@@ -1,5 +1,6 @@
 namespace SpriteKind {
     export const trap = SpriteKind.create()
+    export const meme = SpriteKind.create()
 }
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile0`, function (sprite, location) {
     if (gameMode == "play") {
@@ -85,6 +86,9 @@ controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile6`, function (sprite, location) {
     game.over(true)
+})
+sprites.onOverlap(SpriteKind.Player, SpriteKind.meme, function (sprite, otherSprite) {
+    game.showLongText("Salut prietene eu sunt Gigachad si sunt easteregul din primul nivel", DialogLayout.Full)
 })
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     if (gameMode == "play") {
@@ -912,7 +916,7 @@ function changeMode (mode: string) {
             dddddddddddddddddddddddddddddddddddddddddddddddd
             dddddddddddddddddddddddddddddddddddddddddddddddd
             `)
-        game.showLongText("Acest joc a fost facut...", DialogLayout.Full)
+        game.showLongText("Acest joc a fost facut de 2 natafleti Unul mai mare ca celalat la Scriucod", DialogLayout.Full)
     } else if (mode == "starting") {
         scene.setBackgroundImage(img`
             cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
@@ -1063,6 +1067,25 @@ function changeMode (mode: string) {
         tiles.placeOnRandomTile(Leonardo, assets.tile`myTile`)
         scene.setBackgroundColor(9)
         scene.cameraFollowSprite(Leonardo)
+        gigachad = sprites.create(img`
+            . . . . . f f f f f f . . . . . 
+            . . . . . f b b b b f . . . . . 
+            . . . . . f f b b f f . . . . . 
+            . . . f f f b b b b f f f . . . 
+            . . f b b b f b b f b b b f . . 
+            . f b f f b f f f f b f f b f . 
+            f b f . f b b b b b b f . f b f 
+            f b f . f b b b b b b f . f b f 
+            f b f . f b b b b b b f . f b f 
+            . f . . f b b b b b b f . . f . 
+            . . . . f b f f f f b f . . . . 
+            . . . . f b f . . f b f . . . . 
+            . . . . f b f . . f b f . . . . 
+            . . f f f b f . . f b f f f . . 
+            . . f b b b f . . f b b b f . . 
+            . . f f f f f . . f f f f f . . 
+            `, SpriteKind.meme)
+        tiles.placeOnRandomTile(gigachad, assets.tile`myTile13`)
         callSpikes()
         callpoints()
         controller.moveSprite(Leonardo, 80, 0)
@@ -1189,6 +1212,7 @@ scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.stairSouth, function (spr
 })
 let points: Sprite = null
 let ninja: Sprite = null
+let gigachad: Sprite = null
 let myMenu: miniMenu.MenuSprite = null
 let spr_Spike: Sprite = null
 let direction = 0
