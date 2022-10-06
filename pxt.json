@@ -6,7 +6,8 @@
         "block-menu": "github:riknoll/arcade-custom-menu#v0.0.1",
         "arcade-sprite-data": "github:microsoft/arcade-sprite-data#v0.1.0",
         "arcade-story": "github:microsoft/arcade-storytelling#v1.0.3",
-        "arcade-mini-menu": "github:riknoll/arcade-mini-menu#c8b01b9d47f85a5133c786f1c026b1f376fe4285"
+        "arcade-mini-menu": "github:riknoll/arcade-mini-menu#c8b01b9d47f85a5133c786f1c026b1f376fe4285",
+        "arcade-sprite-events": "github:riknoll/arcade-sprite-events#dc93eec8412053ebbd2b8f01cf5b6ae285d28900"
     },
     "files": [
         "main.blocks",
@@ -20,7 +21,7 @@
         "test.ts"
     ],
     "targetVersions": {
-        "target": "1.10.34",
+        "target": "1.10.36",
         "targetId": "arcade"
     },
     "supportedTargets": [
