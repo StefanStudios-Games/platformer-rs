@@ -113,20 +113,55 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
                 ...ffff..ffff...
                 `)
             shuriken = sprites.createProjectileFromSprite(img`
-                . . . . . . . . . . . . . 
-                . . . . . . . . . . . . . 
-                . . . . . . . . . . . . . 
-                . . . . . . . . . . . . . 
-                . . . . . . . . . . . . . 
-                . . . . . . . . . . . . . 
-                . . . . . . . . . . . . . 
-                . . . . . . . . . . . . . 
-                . . . . . . . . . . . . . 
-                . . . . . . . . . . . . . 
-                . . . . . . . . . . . . . 
-                . . . . . . . . . . . . . 
-                . . . . . . . . . . . . . 
-                `, Leonardo, -150, 0)
+                . . . . f . 
+                . f . f d f 
+                f d f d . . 
+                . . d . d f 
+                . . d d f d 
+                . f d f . f 
+                `, Leonardo, -125, 0)
+            animation.runImageAnimation(
+            shuriken,
+            [img`
+                . . . . . . . . 
+                . . . . . f . . 
+                . . f . f d f . 
+                . f d f d . . . 
+                . . . d . d f . 
+                . . . d d f d . 
+                . . f d f . f . 
+                . . . . . . . . 
+                `,img`
+                . . . . . . . . 
+                . f . f d f . . 
+                . d f d d . . . 
+                . f d . d . . . 
+                . . . d f d f . 
+                . f d f . f . . 
+                . . f . . . . . 
+                . . . . . . . . 
+                `,img`
+                . . . . . . . . 
+                . . f d f . f . 
+                . . . d d f d . 
+                . . . d . d f . 
+                . f d f d . . . 
+                . . f . f d f . 
+                . . . . . f . . 
+                . . . . . . . . 
+                `,img`
+                . . . . . . . . 
+                . . . . . f . . 
+                . . f . f d f . 
+                . f d f d . . . 
+                . . . d . d f . 
+                . . . d d f d . 
+                . . f d f . f . 
+                . . . . . . . . 
+                `],
+            50,
+            true
+            )
         } else {
             Leonardo.setImage(img`
                 ................
@@ -164,9 +199,9 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
                 . . . f d d f . . . . f . 
                 . . f d d f . . . . . . . 
                 . . . f f . . . . . . . . 
-                `, Leonardo, 150, 0)
+                `, Leonardo, 125, 0)
+            scaling.scaleToPercent(shuriken, 50, ScaleDirection.Uniformly, ScaleAnchor.Middle)
         }
-        scaling.scaleToPercent(shuriken, 50, ScaleDirection.Uniformly, ScaleAnchor.Middle)
     }
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile15`, function (sprite, location) {
@@ -1235,6 +1270,9 @@ function changeMode (mode: string) {
     }
     gameMode = mode
 }
+sprites.onDestroyed(SpriteKind.Projectile, function (sprite) {
+    console.log("dead")
+})
 function callpoints () {
     for (let value2 of tiles.getTilesByType(assets.tile`myTile8`)) {
         points = sprites.create(img`
