@@ -112,6 +112,21 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
                 ...f77f..f77f...
                 ...ffff..ffff...
                 `)
+            shuriken = sprites.createProjectileFromSprite(img`
+                . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . 
+                `, Leonardo, -150, 0)
         } else {
             Leonardo.setImage(img`
                 ................
@@ -135,7 +150,23 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
                 ...f77f..f77f...
                 ...ffff..ffff...
                 `)
+            shuriken = sprites.createProjectileFromSprite(img`
+                . . . . . . . . f f . . . 
+                . . . . . . . f d d f . . 
+                . f . . . . f d d f . . . 
+                f d f f . f d d d f . . . 
+                f d d d f d d d f . . . . 
+                . f d d d d f d d f . . . 
+                . . f d d f . f d d f . . 
+                . . . f d d f d d d d f . 
+                . . . . f d d d f d d d f 
+                . . . f d d d f . f f d f 
+                . . . f d d f . . . . f . 
+                . . f d d f . . . . . . . 
+                . . . f f . . . . . . . . 
+                `, Leonardo, 150, 0)
         }
+        scaling.scaleToPercent(shuriken, 50, ScaleDirection.Uniformly, ScaleAnchor.Middle)
     }
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile15`, function (sprite, location) {
@@ -1237,6 +1268,7 @@ let points: Sprite = null
 let ninja: Sprite = null
 let myMenu: miniMenu.MenuSprite = null
 let spr_Spike: Sprite = null
+let shuriken: Sprite = null
 let direction = 0
 let Leonardo: Sprite = null
 let currentCheckpoint = 0
